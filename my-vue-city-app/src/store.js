@@ -25,6 +25,12 @@ export default new Vuex.Store({
         // 스프레드 연산자로 두개의 객체를 합친다
         // {...객체1, ...객체2, ...객체3}
         cityData: {...myD0, ...myD1},
+        // 변경되는 데이터는 state구역에 외부변수를 할당하여
+        // 변경시 가상돔에 반영하여 실제돔으로 연결되도록 등록해줌
+        // 이름은 같은 이름을 사용해도됨(구분되기 때문에)
+        myD0 : myD0,
+        myD1 : myD1,
+        myD2 : myD2,
         // 이미지 정보 셋업 변수
         imgsrc : "",
         // 도시 설명정보 셋업 변수
@@ -49,7 +55,16 @@ export default new Vuex.Store({
            헐.imgsrc =헐.cityData[슉].이미지
             // 2. 도시 설명 변수 : desc
            헐.desc =헐.cityData[슉].설명
-        }
+        }, // chgData
+        // 메뉴 데이터 변경 메서드
+        chgMenu(헐, 슉){// 헐 - state 변수, 슉 - 전달변수
+            헐.cityData = 슉===1?{...헐.myD0, ...헐.myD1}:{...헐.myD0, ...헐.myD2};
+            // console.log(슉, 헐.myD1)
+            // 메뉴 변경시 인트로 화면으로 변경하기
+            헐.imgsrc = 헐.cityData.인트로.이미지;
+            헐.desc = 헐.cityData.인트로.설명;
+
+        }, // chgMenu
     },
     // (3) 백엔드 관련 코딩 비동기처리 메서드 구역 : 호출시 dispatch 사용
     actions : {
